@@ -1,10 +1,7 @@
 import { listVehicles } from "./actions";
-import dynamic from "next/dynamic";
-
-const VehiclesClient = dynamic(() => import("./client"), { ssr: false });
+import VehiclesClient from "./client";
 
 export default async function VehiclesPage() {
   const vehicles = await listVehicles();
-
   return <VehiclesClient vehicles={vehicles ?? []} />;
 }

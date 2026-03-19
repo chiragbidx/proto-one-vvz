@@ -36,7 +36,7 @@ export default async function DashboardLayout({
 
   const fullName = `${user.firstName} ${user.lastName}`.trim();
   const initials =
-    `${user.firstName[0] ?? ""}${user.lastName[0] ?? ""}`.toUpperCase() || "U";
+    `${user.firstName[0] ?? ""}${user.lastName[0] ?? ""}`.toUpperCase() || "F";
 
   return (
     <div className="min-h-screen bg-background">
@@ -46,10 +46,10 @@ export default async function DashboardLayout({
           <div className="p-5">
             <div className="flex items-center gap-2.5">
               <div className="grid size-8 place-items-center rounded-lg bg-foreground text-background text-sm font-bold shadow-sm">
-                P
+                F
               </div>
-              {/* Dashboard Text Logo */}
-              <span className="font-semibold tracking-tight">Panda</span>
+              {/* FleetOps Text Logo */}
+              <span className="font-semibold tracking-tight">FleetOps</span>
             </div>
           </div>
 
@@ -81,6 +81,9 @@ export default async function DashboardLayout({
           <main className="flex-1 p-4 sm:p-6 lg:p-8">
             <div className="mx-auto max-w-6xl">{children}</div>
           </main>
+          <footer className="w-full py-3 px-4 text-xs text-muted-foreground opacity-70 border-t text-center">
+            Powered by FleetOps
+          </footer>
         </div>
       </div>
     </div>

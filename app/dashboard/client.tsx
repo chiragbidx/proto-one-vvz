@@ -15,6 +15,8 @@ export default function Client({ greeting, firstName }: ClientProps) {
     <DashboardContent
       greeting={greeting}
       firstName={firstName}
+      headerTitle="Welcome to FleetOps"
+      headerSubtitle="Your centralized hub for logistics and vehicle management."
     />
   );
 }

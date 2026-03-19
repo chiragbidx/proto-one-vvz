@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import { createVehicle } from "./../actions";
-import { vehicleInputSchema } from "./validation";
+import { vehicleInputSchema } from "../validation";
 import { Input } from "@/components/ui/input";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";

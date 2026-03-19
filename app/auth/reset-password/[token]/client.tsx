@@ -1,7 +1,6 @@
 "use client";
 
 // Purpose: Client UI for /auth/reset-password/[token].
-// Shows an expired-link message or a new-password form depending on token validity.
 
 import Link from "next/link";
 import { useActionState } from "react";
@@ -50,6 +49,9 @@ export default function Client({ token, valid }: ClientProps) {
               >
                 Request a new reset link
               </Link>
+              <div className="pt-2 text-xs opacity-75 text-center">
+                Powered by FleetOps
+              </div>
             </CardContent>
           </Card>
         </section>
@@ -62,7 +64,7 @@ export default function Client({ token, valid }: ClientProps) {
       <section className="mx-auto flex min-h-[720px] w-full max-w-md items-center justify-center">
         <Card className="w-full border-secondary/70 shadow-xl">
           <CardHeader className="space-y-1">
-            <CardTitle>Reset password</CardTitle>
+            <CardTitle>Reset your FleetOps password</CardTitle>
             <CardDescription>
               Choose a new password for your account.
             </CardDescription>
@@ -97,7 +99,7 @@ export default function Client({ token, valid }: ClientProps) {
               </div>
 
               <Button type="submit" className="w-full" disabled={pending}>
-                {pending ? "Resetting..." : "Reset password"}
+                {pending ? "Resetting..." : "Reset Password"}
               </Button>
             </form>
 
@@ -117,6 +119,9 @@ export default function Client({ token, valid }: ClientProps) {
               >
                 Back to sign in
               </Link>
+              <div className="pt-2 text-xs opacity-75 text-center">
+                Powered by FleetOps
+              </div>
             </div>
           </CardContent>
         </Card>

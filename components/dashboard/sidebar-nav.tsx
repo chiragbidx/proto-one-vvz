@@ -9,6 +9,9 @@ import {
   Hammer,
   Settings,
   Users,
+  Truck,
+  ClipboardList,
+  LayoutDashboard,
 } from "lucide-react";
 import {
   Collapsible,
@@ -25,14 +28,12 @@ type NavItem = {
 
 const sections: { title: string; items: NavItem[] }[] = [
   {
-    title: "Platform",
+    title: "FleetOps",
     items: [
-      { label: "Overview", href: "/dashboard", icon: Home },
-      {
-        label: "Feature",
-        href: "/dashboard/feature",
-        icon: Hammer,
-      },
+      { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+      { label: "Vehicles", href: "/dashboard/vehicles", icon: Truck },
+      { label: "Assignments", href: "/dashboard/assignments", icon: ClipboardList },
+      { label: "Overview", href: "/dashboard/overview", icon: Home },
     ],
   },
   {

@@ -1,21 +1,28 @@
 "use server";
 
 import { db } from "@/lib/db/client";
-import { vehicles } from "@/lib/db/schema";
+import { vehicles, teamMembers } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
 import { getAuthSession } from "@/lib/auth/session";
 import type { VehicleInput } from "./validation";
+
+// Helper to get user's teamId
+async function getTeamIdForUser(userId: string): Promise<string | undefined> {
+  const [teamMember] = await db
+    .select({ teamId: teamMembers.teamId })
+    .from(teamMembers)
+    .where(eq(teamMembers.userId, userId))
+    .limit(1);
+
+  return teamMember?.teamId;
+}
 
 // Action: Create vehicle
 export async function createVehicle(data: VehicleInput) {
   const session = await getAuthSession();
   if (!session) throw new Error("Unauthorized");
 
-  // Find team for the user
-  const teamId = await db.query.teamMembers.findFirst({
-    where: (tm) => eq(tm.userId, session.userId),
-    columns: { teamId: true }
-  }).then(r => r?.teamId);
+  const teamId = await getTeamIdForUser(session.userId);
 
   if (!teamId) throw new Error("Team not found.");
 
@@ -34,11 +41,7 @@ export async function listVehicles() {
   const session = await getAuthSession();
   if (!session) throw new Error("Unauthorized");
 
-  // Find team for the user
-  const teamId = await db.query.teamMembers.findFirst({
-    where: (tm) => eq(tm.userId, session.userId),
-    columns: { teamId: true }
-  }).then(r => r?.teamId);
+  const teamId = await getTeamIdForUser(session.userId);
 
   if (!teamId) throw new Error("Team not found.");
 
@@ -54,11 +57,7 @@ export async function getVehicle(vehicleId: string) {
   const session = await getAuthSession();
   if (!session) throw new Error("Unauthorized");
 
-  // Find team for the user
-  const teamId = await db.query.teamMembers.findFirst({
-    where: (tm) => eq(tm.userId, session.userId),
-    columns: { teamId: true }
-  }).then(r => r?.teamId);
+  const teamId = await getTeamIdForUser(session.userId);
 
   if (!teamId) throw new Error("Team not found.");
 
@@ -77,11 +76,7 @@ export async function updateVehicle(vehicleId: string, data: VehicleInput) {
   const session = await getAuthSession();
   if (!session) throw new Error("Unauthorized");
 
-  // Find team
-  const teamId = await db.query.teamMembers.findFirst({
-    where: (tm) => eq(tm.userId, session.userId),
-    columns: { teamId: true }
-  }).then(r => r?.teamId);
+  const teamId = await getTeamIdForUser(session.userId);
 
   if (!teamId) throw new Error("Team not found.");
 
@@ -101,11 +96,7 @@ export async function archiveVehicle(vehicleId: string) {
   const session = await getAuthSession();
   if (!session) throw new Error("Unauthorized");
 
-  // Find team
-  const teamId = await db.query.teamMembers.findFirst({
-    where: (tm) => eq(tm.userId, session.userId),
-    columns: { teamId: true }
-  }).then(r => r?.teamId);
+  const teamId = await getTeamIdForUser(session.userId);
 
   if (!teamId) throw new Error("Team not found.");
 
